@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <header class="header">
+        <div class="menu container ">
+         <img src="{{ url_for('static', filename='images/logoH.png') }}" alt="">
+            <input type="checkbox" id="menu" />
+            <label for="menu">
+                <img clas src="{{ url_for('static', filename='images/menu.png') }}" class="menu-icono" alt="menu">
+            </label>
+            <nav class="navbar">
+                <ul>
+                    
+                    <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('credit') }}">Crédito</a></li>
+                    <li><a href="{{ url_for('clientes') }}">Clientes</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contacto</a></li>   
+                    <li><a class="blue" href="{{ url_for('sesion') }}">Iniciar</a></li>
+                </ul>
+            </nav>
+          </div>
+          <div class="header-content container">
+            <div class="header-txt">
+                
+                <h1>Bienvenido</h1>
+
+                <h1> "Financiera Creciendo Juntos"</h1>
+    
+                <span>¿Necesitas un prestamo?</span>
+                
+                <p>
+                    En Financiera creciendo juntos tendras la oportunidad de realizar lo que tanto anhelas.
+
+                    Realiza tu solicitud de prestamo al instante, conforme a lo que necesites y recuerda que 
+                    
+                    "Creciendo juntos crecemos mejor"
+                </p>
+            </div>
+            <div class="header-img">
+                <img class="gif" src="{{ url_for('static', filename='images/74pZ.gif') }}" alt="">
+    
+            </div>
+        </div>
+    
+    </header>
+    <main class="services container">
+        <h2>Servicios</h2>
+    
+        <div class="box-container" id="lista-1">
+    
+            <div class="box">
+                <img class="dollars" src="{{ url_for('static', filename='images/1bhb.gif')}}" alt="">
+                <div class="services-txt">
+                    <h3>Crédito</h3>
+                    <p>Solicitar mi Crédito.</p>
+                    <p class="precio"></p>
+                    <a href="#" class="seleccionar btn-3" data-id="1">
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/clientes.jpeg') }}" alt="">
+                <div class="services-txt">
+                    <h3>Clientes</h3>
+                    <p>Estados de cuenta, Créditos y mas!!!.</p>
+                    <p class="precio"></p>
+                    <a href="#" class="seleccionar btn-3" data-id="2">
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='images/telefono.jpeg') }}" alt="">
+                <div class="services-txt">
+                    <h3>Contacto</h3>
+                    <p>Informacion, Dudas, Quejas y mas aqui.</p>
+                    <p class="precio"></p>
+                    <a href="#" class="seleccionar btn-3" data-id="3">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <section class="testimonio container">
+        <span>Testimoniales</span>
+        <h2>Que opinan nuestros clientes</h2>
+        <div class="testimonial-content">
+            <div class="testimonial-1">
+                <p>
+                    Financiamiento comodo y seguro "Lo recomiendo muchisimo!! &#128516" 
+                </p>
+                <img src="{{ url_for('static', filename='images/starts.png') }}" alt="">
+
+                <h4>@Financiera-Creciendo-Juntos</h4>
+    
+            </div>
+    
+        </div>
+    
+    
+    </section>
+    
+</body>
+</html>
