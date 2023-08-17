@@ -1,33 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/clientes.css') }}">
+    <title>Clientes</title>
 </head>
 <body>
-    <header class="header">
-        <div class="menu container ">
-         <img src="{{ url_for('static', filename='images/logoH.png') }}" alt="">
-            <input type="checkbox" id="menu" />
-            <label for="menu">
-                <img clas src="images/desvanecido.jpg" class="menu-icono" alt="menu">
-            </label>
-            <nav class="navbar">
-                <ul>
-                    
-                    <li><a href="{{ url_for('home') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('credit') }}">Crédito</a></li>
-                    <li><a href="{{ url_for('clientes') }}">Clientes</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contacto</a></li>   
-                    <li><a class="blue" href="#">Iniciar</a></li>
-                </ul>
-            </nav>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Logo">
+        <h1 class="header-title">Financiera Creciendo Juntos</h1>
+        <div class="header-buttons">
+            <a class="btn" href="{{ url_for('deshboard') }}">Inicio</a>
+            <a class="btn" href="{{ url_for('clientes') }}">Clientes</a>
+            
         </div>
-    <header class="header">
+    </div>
 
+    <h1>Lista de Clientes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente[0] }}</td>
+                <td>{{ cliente[1] }}</td>
+                <td>{{ cliente[2] }}</td>
+                <td>{{ cliente[3] }}</td>
+                <td>{{ cliente[4] }}</td>
+                <td>
+
+                    <a class="btn btn-editar" href="{{ url_for('editar_cliente', id=cliente[0]) }}">Editar</a>
+                    <a class="btn btn-eliminar" href="#" class="eliminar-link" data-id="{{ cliente[0] }}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
     
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const eliminarLinks = document.querySelectorAll('.eliminar-link');
+                
+                eliminarLinks.forEach(link => {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const id = this.getAttribute('data-id');
+                        if (confirm(`¿Estás seguro de que deseas eliminar al cliente con ID ${id}?`)) {
+                            window.location.href = `/eliminar_cliente/${id}`;
+                        }
+                    });
+                });
+            });
+        </script>
+    <a class="btn" href="{{ url_for('agregar_cliente') }}">Agregar Cliente</a>
 </body>
 </html>
-          

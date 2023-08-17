@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/editar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Logo">
+        <h1 class="header-title">Editar Cliente</h1>
+        <div class="header-buttons">
+            <a class="btn" href="{{ url_for('deshboard') }}">Inicio</a>
+            <a class="btn" href="{{ url_for('clientes') }}">Clientes</a>
+            <!-- Agrega más botones según sea necesario -->
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Detalles del Cliente</h2>
+        <form method="POST" action="{{ url_for('editar_cliente', id=id_cliente) }}">
+            <input type="text" name="nombre" value="{{ cliente[1] }}">
+            <input type="text" name="direccion" value="{{ cliente[2] }}">
+            <input type="text" name="telefono" value="{{ cliente[3] }}">
+            <input type="text" name="email" value="{{ cliente[4] }}">
+            <input type="submit" value="Actualizar">
+        </form>
+    </div>
+</body>
+</html>
+

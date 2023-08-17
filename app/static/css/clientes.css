@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Outfit:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* Reset de estilos para eliminar márgenes y rellenos por defecto */
+body, h1, h2, p {
+    margin: 10px;
+    padding: 10px;
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #b6b6c0; /* Gris claro */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-top: 20px;
+    color: #333; /* Negro */
+    margin-bottom: 20px;
+}
+
+/* Estilos para la tabla de clientes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc; /* Gris claro */
+    background-color: #fff; /* Blanco */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc; /* Gris claro */
+}
+
+th {
+    background-color: #c7e0f5; /* Azul claro */
+}
+
+/* Estilos para los enlaces de edición y eliminación */
+a {
+    text-decoration: none;
+    color: #333; /* Negro */
+    margin-right: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Estilos para los enlaces de edición y eliminación */
+a.btn {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #1877F2; /* Azul de Facebook */
+    color: #fff;
+    border: 1px solid #1877F2;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+a.btn:hover {
+    background-color: #1565C0; /* Azul más oscuro de Facebook */
+    border-color: #1565C0;
+}
+/* Estilos para los enlaces de edición y eliminación */
+a.btn-editar {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #00e676; /* Verde claro */
+    color: #fff;
+    border: 1px solid #00e676;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+a.btn-editar:hover {
+    background-color: #00c853; /* Verde más oscuro */
+    border-color: #00c853;
+}
+
+a.btn-eliminar {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #e53935; /* Rojo */
+    color: #fff;
+    border: 1px solid #e53935;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+a.btn-eliminar:hover {
+    background-color: #c62828; /* Rojo más oscuro */
+    border-color: #c62828;
+}
+
+.header {
+    background-color: #1877F2; /* Azul de Facebook */
+    color: #fff;
+    padding: 20px; /* Aumentado el padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    height: 50px; /* Ajustado el tamaño del logo */
+}
+
+.header-buttons {
+    display: flex;
+    gap: 20px; /* Aumentado el espacio entre los botones */
+    font-size: 18px; /* Aumentado el tamaño de fuente de los botones */
+}
+.header-title {
+    color: #fff; /* Blanco */
+    margin: 0;
+    font-size: 24px; /* Tamaño de fuente aumentado */
+    margin-left: 10px; /* Añadido margen para separar el logo y el título */
+}
+
