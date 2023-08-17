@@ -1,8 +1,8 @@
 import mysql.connector
-from flask import Flask, render_template, request, redirect, url_for,flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
-app.secret_key = 'MY SECRET KEY'
+app.secret_key = 'tu_clave_secreta'
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -147,7 +147,7 @@ def editar_cliente(id):
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': '',
+    'password':'',
     'database': 'creciendo'
 }
 
@@ -160,18 +160,149 @@ def eliminar_cliente(id):
         db = conectar_db()
         cursor = db.cursor()
 
-        cursor.execute('DELETE FROM clientes WHERE ID_Cliente = %s', (id,))
-        db.commit()
+        # Verificar si el cliente tiene datos relacionados en las tablas
+        cursor.execute('SELECT COUNT(*) FROM prestamos WHERE ID_Cliente = %s', (id,))
+        num_prestamos = cursor.fetchone()[0]
+
+        cursor.execute('SELECT COUNT(*) FROM pagos WHERE ID_Cliente = %s', (id,))
+        num_pagos = cursor.fetchone()[0]
+
+        cursor.execute('SELECT COUNT(*) FROM reportes WHERE ID_Cliente = %s', (id,))
+        num_reportes = cursor.fetchone()[0]
+
+        if num_prestamos > 0 or num_pagos > 0 or num_reportes > 0:
+            flash('No se puede eliminar el cliente porque tiene datos relacionados en otras tablas.', 'error')
+        else:
+            cursor.execute('DELETE FROM clientes WHERE ID_Cliente = %s', (id,))
+            db.commit()
+            flash('Cliente eliminado exitosamente', 'success')
 
         cursor.close()
         db.close()
 
-        flash('Cliente eliminado exitosamente', 'success')
-
     except mysql.connector.Error as err:
         flash('Error al eliminar el cliente', 'error')
 
-    return redirect(url_for('clientes'))
+    return redirect(url_for('clientes')) 
 
+#...
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '',
+    'database': 'creciendo'
+}
+
+def conectar_db():
+    return mysql.connector.connect(**db_config)
+
+# Ruta para mostrar todos los préstamos
+@app.route('/prestamos')
+def prestamos():
+    try:
+        db = conectar_db()
+        cursor = db.cursor()
+
+        cursor.execute('SELECT * FROM prestamos')
+        prestamos = cursor.fetchall()
+
+        cursor.close()
+        db.close()
+
+    except mysql.connector.Error as err:
+        return f'Error al acceder a la base de datos: {err}'
+
+    return render_template('prestamos.html', prestamos=prestamos)
+
+# Ruta para agregar un préstamo
+@app.route('/agregar_prestamo', methods=['GET', 'POST'])
+def agregar_prestamo():
+    if request.method == 'POST':
+        nuevo_monto = request.form['monto']
+        nueva_tasa = request.form['tasa']
+        nueva_fecha_inicio = request.form['fecha_inicio']
+        nueva_fecha_vencimiento = request.form['fecha_vencimiento']
+        nuevo_estado = request.form['estado']
+
+        try:
+            db = conectar_db()
+            cursor = db.cursor()
+
+            cursor.execute('INSERT INTO prestamos (Monto, TasaInteres, FechaInicio, FechaVencimiento, Estado) VALUES (%s, %s, %s, %s, %s)',
+                           (nuevo_monto, nueva_tasa, nueva_fecha_inicio, nueva_fecha_vencimiento, nuevo_estado))
+            db.commit()
+
+            cursor.close()
+            db.close()
+
+            return redirect(url_for('prestamos'))
+
+        except mysql.connector.Error as err:
+            return f'Error al agregar el préstamo: {err}'
+
+    return render_template('agregar_prestamo.html')
+
+# Ruta para editar un préstamo
+@app.route('/editar_prestamo/<int:id>', methods=['GET', 'POST'])
+def editar_prestamo(id):
+    if request.method == 'POST':
+        nuevo_monto = request.form['monto']
+        nueva_tasa = request.form['tasa']
+        nueva_fecha_inicio = request.form['fecha_inicio']
+        nueva_fecha_vencimiento = request.form['fecha_vencimiento']
+        nuevo_estado = request.form['estado']
+
+        try:
+            db = conectar_db()
+            cursor = db.cursor()
+
+            cursor.execute('UPDATE prestamos SET Monto=%s, TasaInteres=%s, FechaInicio=%s, FechaVencimiento=%s, Estado=%s WHERE ID_Prestamo=%s',
+                           (nuevo_monto, nueva_tasa, nueva_fecha_inicio, nueva_fecha_vencimiento, nuevo_estado, id))
+            db.commit()
+
+            cursor.close()
+            db.close()
+
+            return redirect(url_for('prestamos'))
+
+        except mysql.connector.Error as err:
+            flash('Error al actualizar el préstamo', 'error')
+
+    try:
+        db = conectar_db()
+        cursor = db.cursor()
+
+        cursor.execute('SELECT * FROM prestamos WHERE ID_Prestamo = %s', (id,))
+        prestamo = cursor.fetchone()
+
+        cursor.close()
+        db.close()
+
+        return render_template('editar_prestamo.html', prestamo=prestamo, id_prestamo=id)
+
+    except mysql.connector.Error as err:
+        flash('Error al obtener el préstamo', 'error')
+
+    return redirect(url_for('prestamos'))
+
+# Ruta para eliminar un préstamo
+@app.route('/eliminar_prestamo/<int:id>', methods=['POST'])
+def eliminar_prestamo(id):
+    try:
+        db = conectar_db()
+        cursor = db.cursor()
+
+        cursor.execute('DELETE FROM prestamos WHERE ID_Prestamo = %s', (id,))
+        db.commit()
+        flash('Préstamo eliminado exitosamente', 'success')
+
+        cursor.close()
+        db.close()
+
+    except mysql.connector.Error as err:
+        flash('Error al eliminar el préstamo', 'error')
+
+    return redirect(url_for('prestamos'))
+    
 if __name__ == '__main__':
     app.run(debug=True)

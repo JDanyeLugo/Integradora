@@ -12,7 +12,8 @@
         <div class="header-buttons">
             <a class="btn" href="{{ url_for('deshboard') }}">Inicio</a>
             <a class="btn" href="{{ url_for('clientes') }}">Clientes</a>
-            
+            <a class="btn" href="{{ url_for('prestamos') }}">Prestamos</a>
+            <!-- Agrega más botones según tus necesidades -->
         </div>
     </div>
 
@@ -39,39 +40,25 @@
                 <td>
 
                     <a class="btn btn-editar" href="{{ url_for('editar_cliente', id=cliente[0]) }}">Editar</a>
-                    <a class="btn btn-eliminar" href="#" class="eliminar-link" data-id="{{ cliente[0] }}">Eliminar</a>
+                    <a class="btn btn-eliminar" href="{{ url_for('eliminar_cliente', id=cliente[0]) }}" onclick="event.preventDefault(); document.getElementById('eliminar-form').submit();">Eliminar</a>
+                    <form id="eliminar-form" action="{{ url_for('eliminar_cliente', id=cliente[0]) }}" method="POST" style="display: none;"></form>
+
                 </td>
             </tr>
             {% endfor %}
-        </table>
-        
-        <div class="flash-messages">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class="flash">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-        </div>
-    
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const eliminarLinks = document.querySelectorAll('.eliminar-link');
-                
-                eliminarLinks.forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const id = this.getAttribute('data-id');
-                        if (confirm(`¿Estás seguro de que deseas eliminar al cliente con ID ${id}?`)) {
-                            window.location.href = `/eliminar_cliente/${id}`;
-                        }
-                    });
-                });
-            });
-        </script>
+        </tbody>
+    </table>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
     <a class="btn" href="{{ url_for('agregar_cliente') }}">Agregar Cliente</a>
 </body>
 </html>

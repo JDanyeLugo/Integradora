@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Inicio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/deshboard.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
 </head>
@@ -16,13 +17,17 @@
                 <nav>
                     <ul>
                         <li><a href="{{ url_for('deshboard') }}">Inicio</a></li>
-                        <li><a href="{{ url_for('clientes') }}">Clientes</a></li> <!-- Agrega este enlace -->
+                        <li><a href="{{ url_for('clientes') }}">Clientes</a></li>
+                        <li><a href="{{ url_for('prestamos') }}">Prestamos</a></li> <!-- Agrega este enlace -->
                         <!-- Agrega más elementos de navegación aquí si es necesario -->
                     </ul>
                 </nav>
             </div>
         </header>
-        <!-- Contenido del deshboard aquí -->
-    </div>
+        <div class="bienvenidos">
+            <h2>Bienvenido</h2>
+            <img src="{{ url_for('static', filename='images/74pZ.gif') }}" alt="Imagen Bienvenidos" class="imagen-bienvenidos">
+        </div>
+       
 </body>
 </html>

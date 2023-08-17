@@ -1,10 +1,16 @@
 /* deshboard.css */
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Outfit:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Fondo de página gris claro */
+}
 header {
     font-family: 'Poppins', sans-serif;
     background-color: #007bff;
     color: #fff;
     padding: 10px 0;
+
 }
 
 .header-content {
@@ -60,3 +66,20 @@ nav a {
 nav a:hover {
     color: #f0f0f0;
 }
+
+.bienvenidos {
+
+    font-family:'Poppins' sans-serif;
+    text-align: center;
+    margin-top: 50px; /* Espacio superior */
+    font-size: 28px;
+    color: #333;
+}
+.imagen-bienvenidos {
+    display: block;
+    margin: 100px auto; /* Centrado vertical y horizontal */
+    max-width: 30%;
+}
+
+
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
+    <title>Préstamos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prestamos.css') }}">
+</head>
+<body>
+        <header>
+            <div class="header">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Logo">
+                <h1 class="header-title">Financiera Creciendo Juntos</h1>
+                <div class="header-buttons">
+                    <a class="btn" href="{{ url_for('deshboard') }}">Inicio</a>
+                    <a class="btn" href="{{ url_for('clientes') }}">Clientes</a>
+                    <a class="btn" href="{{ url_for('prestamos') }}">Prestamos</a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <h1>Préstamos</h1>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>ID_Prestamo</th>
+                        <th>ID_Cliente</th>
+                        <th>Monto</th>
+                        <th>TasaInteres</th>
+                        <th>FechaInicio</th>
+                        <th>FechaVencimiento</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    {% for prestamo in prestamos %}
+                        <tr>
+                            <td>{{ prestamo.ID_Prestamo }}</td>
+                            <td>{{ prestamo.ID_Cliente }}</td>
+                            <td>{{ prestamo.Monto }}</td>
+                            <td>{{ prestamo.TasaInteres }}</td>
+                            <td>{{ prestamo.FechaInicio }}</td>
+                            <td>{{ prestamo.FechaVencimiento }}</td>
+                            <td>{{ prestamo.Estado }}</td>
+                            <td>
+                                <a class="btn  btn-editar" href="{{ url_for('editar_prestamo', id=prestamo[0]) }}">Editar</a>
+                                <a class="btn btn-eliminar" href="{{ url_for('eliminar_prestamo', id=prestamo[0]) }}">Eliminar</a>
+                                <form id="eliminar-form" action="{{ url_for('eliminar_prestamo, id=prestamo[0]) }}" method="POST" style="display: none;"></form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
